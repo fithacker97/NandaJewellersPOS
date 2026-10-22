@@ -1,0 +1,37 @@
+{
+  "name": "nanda-showroom",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "dev": "node scripts/start.mjs",
+    "setup": "node scripts/setup.mjs",
+    "frontend": "npm run dev -w @nanda/frontend",
+    "backend": "npm run dev -w @nanda/backend",
+    "build": "npm run build -w @nanda/shared && npm run build -w @nanda/backend && npm run build -w @nanda/frontend",
+    "typecheck": "npm run build -w @nanda/shared && npm run typecheck --workspaces --if-present",
+    "test": "npm run build -w @nanda/shared && tsx --test backend/test/*.test.ts",
+    "test:integration": "npm run build -w @nanda/shared && tsx --test --test-concurrency=1 backend/test/integration/*.test.ts",
+    "db:generate": "prisma generate --schema backend/prisma/schema.prisma",
+    "db:migrate": "prisma migrate deploy --schema backend/prisma/schema.prisma",
+    "db:init": "tsx backend/src/scripts/init.ts",
+    "db:start": "node scripts/database.mjs",
+    "admin:create": "tsx backend/src/scripts/admin.ts",
+    "photos:cleanup": "tsx backend/src/scripts/cleanup.ts",
+    "start:production": "node backend/dist/server.js",
+    "demo:add": "tsx backend/src/scripts/demo-products.ts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "prisma": "6.19.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "@types/node": "^22.18.0",
+    "embedded-postgres": "18.4.0-beta.17",
+    "pg": "^8.16.3"
+  }
+}

@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: nanda
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in .env}
+      POSTGRES_DB: nanda
+    ports:
+      - "127.0.0.1:${DATABASE_PORT:-54329}:5432"
+    volumes:
+      - nanda_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nanda -d nanda"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  nanda_postgres:

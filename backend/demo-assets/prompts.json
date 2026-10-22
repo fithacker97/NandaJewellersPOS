@@ -1,0 +1,27 @@
+[
+  {
+    "file": "gold-ring.png",
+    "tool": "built-in image_gen",
+    "prompt": "Product-mockup: Photorealistic premium jewellery catalogue photograph of a single elegant 22 karat yellow gold solitaire-style ring with a small clear faceted stone. One product only, centered with generous clear space on all sides, seamless warm white background, gentle soft studio lighting, realistic precious metal reflections, extremely crisp jewellery detail, subtle natural contact shadow, eye-level three-quarter product angle, elegant Indian showroom catalogue aesthetic. No text, no logo, no watermark, no packaging, no hands, no props. Square composition. This is a clearly labelled fictional demo product photo for Nanda Jewellers inventory."
+  },
+  {
+    "file": "gold-chain.png",
+    "tool": "built-in image_gen",
+    "prompt": "Product-mockup: Photorealistic premium jewellery catalogue photograph of a single fine 22 karat yellow gold rope chain necklace arranged in a graceful oval. One product only, centered with generous clear space on all sides, seamless warm white background, gentle soft studio lighting, realistic precious metal reflections, extremely crisp jewellery detail, subtle natural contact shadow, eye-level three-quarter product angle, elegant Indian showroom catalogue aesthetic. No text, no logo, no watermark, no packaging, no hands, no props. Square composition. This is a clearly labelled fictional demo product photo for Nanda Jewellers inventory."
+  },
+  {
+    "file": "gold-earrings.png",
+    "tool": "built-in image_gen",
+    "prompt": "Product-mockup: Photorealistic premium jewellery catalogue photograph of one matched pair of traditional Indian 22 karat yellow gold jhumka earrings with delicate filigree domes. One product only, centered with generous clear space on all sides, seamless warm white background, gentle soft studio lighting, realistic precious metal reflections, extremely crisp jewellery detail, subtle natural contact shadow, eye-level three-quarter product angle, elegant Indian showroom catalogue aesthetic. No text, no logo, no watermark, no packaging, no hands, no props. Square composition. This is a clearly labelled fictional demo product photo for Nanda Jewellers inventory."
+  },
+  {
+    "file": "silver-ring.png",
+    "tool": "built-in image_gen",
+    "prompt": "Product-mockup: Photorealistic premium jewellery catalogue photograph of a single sterling silver broad filigree ring with intricate floral openwork and no stones. One product only, centered with generous clear space on all sides, seamless warm white background, gentle soft studio lighting, realistic precious metal reflections, extremely crisp jewellery detail, subtle natural contact shadow, eye-level three-quarter product angle, elegant Indian showroom catalogue aesthetic. No text, no logo, no watermark, no packaging, no hands, no props. Square composition. This is a clearly labelled fictional demo product photo for Nanda Jewellers inventory."
+  },
+  {
+    "file": "silver-coin.png",
+    "tool": "built-in image_gen",
+    "prompt": "Product-mockup: Photorealistic premium jewellery catalogue photograph of a single round polished silver Lakshmi coin, shallow embossed goddess motif, front face visible at a slight angle. One product only, centered with generous clear space on all sides, seamless warm white background, gentle soft studio lighting, realistic precious metal reflections, extremely crisp jewellery detail, subtle natural contact shadow, eye-level three-quarter product angle, elegant Indian showroom catalogue aesthetic. No text, no logo, no watermark, no packaging, no hands, no props. Square composition. This is a clearly labelled fictional demo product photo for Nanda Jewellers inventory."
+  }
+]

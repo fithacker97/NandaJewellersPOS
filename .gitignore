@@ -1,0 +1,12 @@
+node_modules/
+.previous-node-modules/
+.env
+.env.*
+!.env.example
+dist/
+build/
+coverage/
+*.tsbuildinfo
+.playwright-cli/
+output/
+scanner/NandaJewellersPOS/
