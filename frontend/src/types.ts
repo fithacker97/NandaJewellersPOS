@@ -1,0 +1,10 @@
+export type User={id:string;name:string;email:string;role:'ADMIN'|'EMPLOYEE';active:boolean};
+export type Product={id:string;name:string;barcode:string;metal:'GOLD'|'SILVER';weight:string;quantity:number;surplus?:string;productSurplus?:string;baseRate?:string;sellingRate:string;piecePrice:string;lineTotal:string;configured:boolean;lowStock:boolean;active:boolean;photo:{id:string;url:string;thumbnailUrl:string}|null;createdAt:string;updatedAt:string};
+export type Page<T>={items:T[];count:number;page:number;pageSize:number;preview?:{employeeName:string;label:string}};
+export type DraftLine={id:string;productId:string;productName:string;barcode:string;metal:string;weight:string;quantity:number;available:number;active:boolean;sellingRate:string;piecePrice:string;lineTotal:string;totalWeight:string;configured:boolean};
+export type Draft={id:string;revision:number;customerName:string;customerPhone:string;note:string;lines:DraftLine[];total:string;totalWeight:string;totalPieces:number;quoteToken:string};
+export type Invoice={id:string;number:string;issuedAt:string;customerName:string;customerPhone:string;sellerName:string;businessName:string;businessAddress:string;businessPhone:string;total:string;totalWeight:string;totalPieces:number;note:string;lines:DraftLine[]};
+export type Movement={id:string;productName:string;barcode:string;metal:string;weight:string;type:string;delta:number;before:number;after:number;actor:{name:string};createdAt:string;reason:string};
+export type Employee={id:string;name:string;email:string;active:boolean;pricing:{gold:string;silver:string;updatedAt:string}};
+export type Rate={metal:'GOLD'|'SILVER';rate:string;updatedAt:string;actorName:string};
+export type Business={name:string;address:string;phone:string;lowStockThreshold:number};

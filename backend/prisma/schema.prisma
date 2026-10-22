@@ -1,0 +1,231 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+enum Role {
+  ADMIN
+  EMPLOYEE
+}
+enum Metal {
+  GOLD
+  SILVER
+}
+enum MovementType {
+  OPENING
+  RECEIPT
+  SALE
+  ADJUSTMENT
+  ARCHIVE_REMOVAL
+}
+model User {
+  id String @id @default(uuid()) @db.Uuid
+  name String
+  email String @unique
+  passwordHash String
+  role Role
+  active Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  pricing EmployeePricing?
+  sessions Session[]
+  drafts InvoiceDraft[]
+  invoices Invoice[]
+  movements StockMovement[]
+  scannerLinks ScannerLink[]
+}
+model EmployeePricing {
+  userId String @id @db.Uuid
+  user User @relation(fields: [userId], references: [id])
+  gold Decimal @default(0) @db.Decimal(18,4)
+  silver Decimal @default(0) @db.Decimal(18,4)
+  updatedBy String @db.Uuid
+  updatedAt DateTime @updatedAt
+}
+model MetalRate {
+  metal Metal @id
+  rate Decimal @db.Decimal(18,4)
+  updatedBy String? @db.Uuid
+  updatedAt DateTime @updatedAt
+}
+model MetalRateHistory {
+  id String @id @default(uuid()) @db.Uuid
+  metal Metal
+  previous Decimal @db.Decimal(18,4)
+  rate Decimal @db.Decimal(18,4)
+  actorId String @db.Uuid
+  createdAt DateTime @default(now())
+}
+model Product {
+  id String @id @default(uuid()) @db.Uuid
+  barcode String @unique
+  name String
+  metal Metal
+  weight Decimal @db.Decimal(14,4)
+  surplus Decimal @db.Decimal(18,4)
+  quantity Int @default(0)
+  active Boolean @default(true)
+  version Int @default(1)
+  createdBy String @db.Uuid
+  updatedBy String @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  photo ProductPhoto?
+  movements StockMovement[]
+  draftLines InvoiceDraftLine[]
+  invoiceLines InvoiceLine[]
+  @@index([active, metal, createdAt])
+}
+model ProductPhoto {
+  id String @id @default(uuid()) @db.Uuid
+  productId String? @unique @db.Uuid
+  product Product? @relation(fields: [productId], references: [id])
+  ownerId String @db.Uuid
+  key String @unique
+  thumbnailKey String @unique
+  width Int
+  height Int
+  bytes Int
+  createdAt DateTime @default(now())
+}
+model StockMovement {
+  id String @id @default(uuid()) @db.Uuid
+  productId String @db.Uuid
+  product Product @relation(fields: [productId], references: [id])
+  productName String
+  barcode String
+  metal Metal
+  weight Decimal @db.Decimal(14,4)
+  type MovementType
+  delta Int
+  before Int
+  after Int
+  actorId String @db.Uuid
+  actor User @relation(fields: [actorId], references: [id])
+  reason String
+  invoiceId String? @db.Uuid
+  invoice Invoice? @relation(fields: [invoiceId], references: [id])
+  createdAt DateTime @default(now())
+  @@index([createdAt])
+}
+model InvoiceDraft {
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+  user User @relation(fields: [userId], references: [id])
+  currentKey String? @unique @db.Uuid
+  customerName String @default("")
+  customerPhone String @default("")
+  note String @default("")
+  revision Int @default(1)
+  issuedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lines InvoiceDraftLine[]
+  invoice Invoice?
+  scannerLinks ScannerLink[]
+}
+model InvoiceDraftLine {
+  id String @id @default(uuid()) @db.Uuid
+  draftId String @db.Uuid
+  draft InvoiceDraft @relation(fields: [draftId], references: [id], onDelete: Cascade)
+  productId String @db.Uuid
+  product Product @relation(fields: [productId], references: [id])
+  quantity Int
+  @@unique([draftId, productId])
+}
+model Invoice {
+  id String @id @default(uuid()) @db.Uuid
+  number String @unique
+  issuanceKey String @unique @db.Uuid
+  draftId String @unique @db.Uuid
+  draft InvoiceDraft @relation(fields: [draftId], references: [id])
+  sellerId String @db.Uuid
+  seller User @relation(fields: [sellerId], references: [id])
+  sellerName String
+  customerName String
+  customerPhone String
+  note String
+  businessName String
+  businessAddress String
+  businessPhone String
+  total Decimal @db.Decimal(32,2)
+  totalWeight Decimal @db.Decimal(24,4)
+  totalPieces Int
+  issuedAt DateTime @default(now())
+  lines InvoiceLine[]
+  movements StockMovement[]
+  @@index([sellerId, issuedAt])
+}
+model InvoiceLine {
+  id String @id @default(uuid()) @db.Uuid
+  invoiceId String @db.Uuid
+  invoice Invoice @relation(fields: [invoiceId], references: [id])
+  productId String @db.Uuid
+  product Product @relation(fields: [productId], references: [id])
+  productName String
+  barcode String
+  metal Metal
+  weight Decimal @db.Decimal(14,4)
+  quantity Int
+  sellingRate Decimal @db.Decimal(18,4)
+  lineTotal Decimal @db.Decimal(32,2)
+}
+model InvoiceSequence {
+  year Int @id
+  value Int @default(0)
+}
+model AuditLog {
+  id String @id @default(uuid()) @db.Uuid
+  actorId String @db.Uuid
+  action String
+  entityId String
+  details Json
+  createdAt DateTime @default(now())
+  @@index([createdAt])
+}
+model BusinessSettings {
+  id Int @id @default(1)
+  name String @default("NANDA JEWELLERS")
+  address String @default("")
+  phone String @default("")
+  lowStockThreshold Int @default(3)
+  updatedBy String? @db.Uuid
+  updatedAt DateTime @updatedAt
+}
+model Session {
+  id String @id
+  userId String @db.Uuid
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model ScannerLink {
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+  user User @relation(fields: [userId], references: [id])
+  draftId String @db.Uuid
+  draft InvoiceDraft @relation(fields: [draftId], references: [id])
+  codeHash String @unique
+  tokenHash String? @unique
+  pairingExpiresAt DateTime
+  pairedAt DateTime?
+  revokedAt DateTime?
+  createdAt DateTime @default(now())
+  events ScannerEvent[]
+  @@index([userId, draftId])
+}
+model ScannerEvent {
+  id String @id @default(uuid()) @db.Uuid
+  linkId String @db.Uuid
+  link ScannerLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  eventKey String
+  barcode String
+  result Json
+  createdAt DateTime @default(now())
+  @@unique([linkId, eventKey])
+}

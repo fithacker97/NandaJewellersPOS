@@ -1,0 +1,61 @@
+{
+  "name": "@nanda/backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "dev": "node scripts/start.mjs",
+    "setup": "node scripts/setup.mjs",
+    "frontend": "npm run dev -w @nanda/frontend",
+    "backend": "npm run dev:api",
+    "build": "npm run build -w @nanda/shared && npm run build:api && npm run build -w @nanda/frontend",
+    "typecheck": "npm run build -w @nanda/shared && tsc --noEmit && npm run typecheck --workspaces --if-present",
+    "test": "npm run build -w @nanda/shared && tsx --test test/*.test.ts",
+    "test:integration": "npm run build -w @nanda/shared && tsx --test --test-concurrency=1 test/integration/*.test.ts",
+    "db:generate": "prisma generate --schema prisma/schema.prisma",
+    "db:migrate": "prisma migrate deploy --schema prisma/schema.prisma",
+    "db:init": "tsx src/scripts/init.ts",
+    "db:start": "node scripts/database.mjs",
+    "admin:create": "tsx src/scripts/admin.ts",
+    "photos:cleanup": "tsx src/scripts/cleanup.ts",
+    "start:production": "node dist/server.js",
+    "demo:add": "tsx src/scripts/demo-products.ts",
+    "dev:api": "tsx watch src/server.ts",
+    "build:api": "tsc"
+  },
+  "dependencies": {
+    "@nanda/shared": "1.0.0",
+    "@prisma/client": "6.19.2",
+    "argon2": "^0.44.0",
+    "bwip-js": "^4.7.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "multer": "^2.0.2",
+    "pdfkit": "^0.17.2",
+    "sharp": "^0.34.4",
+    "decimal.js": "^10.6.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "prisma": "6.19.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "@types/node": "^22.18.0",
+    "embedded-postgres": "18.4.0-beta.17",
+    "pg": "^8.16.3",
+    "@types/express": "^5.0.3",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/multer": "^2.0.0",
+    "@types/pdfkit": "^0.17.3",
+    "supertest": "^7.1.4",
+    "@types/supertest": "^6.0.3"
+  },
+  "workspaces": [
+    "packages/*",
+    "../frontend"
+  ]
+}

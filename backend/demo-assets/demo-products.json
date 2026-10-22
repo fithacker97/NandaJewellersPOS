@@ -1,0 +1,27 @@
+[
+  {
+    "id": "8ed09ea3-1f5f-4cd3-8e1b-b74176414e1e",
+    "barcode": "NJABAF1B8F729A4EFE",
+    "name": "Demo · Gold Solitaire Ring"
+  },
+  {
+    "id": "8e78f824-98ca-41e0-8f01-f9560b1ccd2b",
+    "barcode": "NJ53E495FA70A84C43",
+    "name": "Demo · Gold Rope Chain"
+  },
+  {
+    "id": "8b2503f5-a060-4f8d-bed1-b0f67a18d97f",
+    "barcode": "NJE692ED02C78C4856",
+    "name": "Demo · Gold Jhumka Earrings"
+  },
+  {
+    "id": "bcadc22e-c04d-464b-8abd-85acf6f3dfc6",
+    "barcode": "NJ2DEF0290A9D34286",
+    "name": "Demo · Silver Filigree Ring"
+  },
+  {
+    "id": "ee70b98d-e5f4-4e69-a6dc-42c5f2f78ca0",
+    "barcode": "NJE0C92AF8F2D7432C",
+    "name": "Demo · Silver Lakshmi Coin"
+  }
+]

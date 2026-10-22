@@ -1,0 +1,33 @@
+{
+  "name": "@nanda/frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host localhost --port 5173 --strictPort",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nanda/shared": "1.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.5",
+    "@tanstack/react-query": "^5.90.6",
+    "react-hook-form": "^7.65.0",
+    "@hookform/resolvers": "^3.10.0",
+    "zod": "^3.25.76",
+    "lucide-react": "^0.468.0",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@fontsource/cormorant-garamond": "^5.2.7",
+    "@fontsource/manrope": "^5.2.7"
+  },
+  "devDependencies": {
+    "vite": "^7.1.12",
+    "@vitejs/plugin-react": "^5.1.0",
+    "tailwindcss": "^4.1.16",
+    "@tailwindcss/vite": "^4.1.16",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
+  }
+}
